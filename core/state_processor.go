@@ -206,12 +206,17 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 }
 
 func ApplyTransactionWithResult(config *params.ChainConfig, bc ChainContext, author *common.Address, gp *GasPool, statedb *state.StateDB, header *types.Header, tx *types.Transaction, usedGas *uint64, cfg vm.Config) (*types.Receipt, *ExecutionResult, error) {
+	println("ApplyTransactionWithResult 1")
 	msg, err := tx.AsMessage(types.MakeSigner(config, header.Number), header.BaseFee)
+	println("ApplyTransactionWithResult 2")
 	if err != nil {
 		return nil, nil, err
 	}
+	println("ApplyTransactionWithResult 3")
 	// Create a new context to be used in the EVM environment
 	blockContext := NewEVMBlockContext(header, bc, author)
+	println("ApplyTransactionWithResult 4")
 	vmenv := vm.NewEVM(blockContext, vm.TxContext{}, statedb, config, cfg)
+	println("ApplyTransactionWithResult 5")
 	return applyTransactionWithResult(msg, config, bc, author, gp, statedb, header, tx, usedGas, vmenv)
 }
