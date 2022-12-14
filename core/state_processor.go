@@ -147,14 +147,17 @@ func applyTransaction(msg types.Message, config *params.ChainConfig, author *com
 
 func applyTransactionWithResult(msg types.Message, config *params.ChainConfig, bc ChainContext, author *common.Address, gp *GasPool, statedb *state.StateDB, header *types.Header, tx *types.Transaction, usedGas *uint64, evm *vm.EVM) (*types.Receipt, *ExecutionResult, error) {
 	// Create a new context to be used in the EVM environment.
+	println("applyTransactionWithResult 1")
 	txContext := NewEVMTxContext(msg)
 	evm.Reset(txContext, statedb)
 
 	// Apply the transaction to the current state (included in the env).
 	result, err := ApplyMessage(evm, msg, gp)
+	println("applyTransactionWithResult 2")
 	if err != nil {
 		return nil, nil, err
 	}
+	println("applyTransactionWithResult 3")
 
 	// Update the state with pending changes.
 	var root []byte
