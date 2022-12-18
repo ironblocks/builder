@@ -2213,7 +2213,7 @@ func (s *BundleAPI) SimulateBundleAndCalls(ctx context.Context, args SimulateBun
 			hex.Encode(dst, result.Return())
 			jsonResult["value"] = "0x" + string(dst)
 		}
-		preResults = append(results, jsonResult)
+		preResults = append(preResults, jsonResult)
 	}
 
 	coinbaseBalanceBefore := state.GetBalance(coinbase)
@@ -2291,7 +2291,7 @@ func (s *BundleAPI) SimulateBundleAndCalls(ctx context.Context, args SimulateBun
 			hex.Encode(dst, result.Return())
 			jsonResult["value"] = "0x" + string(dst)
 		}
-		postResults = append(results, jsonResult)
+		postResults = append(postResults, jsonResult)
 	}
 
 	ret := map[string]interface{}{}
